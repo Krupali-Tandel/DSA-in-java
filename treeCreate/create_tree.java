@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.Stack;
 class Node {
     int data ;
     Node left ;
@@ -27,10 +28,41 @@ public class create_tree{
             p.right = create();
             return p;
         }
-        scanner.close();
+
+    }
+
+    void inorder(Node root){
+        if(root == null){
+            return ;
+        }
+        else {
+            inorder(root.left);
+            System.out.print(root.data+" ");
+            inorder(root.right);
+            
+        }
+    }
+    void inorder_without_recur(Node root ){
+      Stack<Node> st = new Stack<Node>();
+        while(true){
+         while(root != null){
+             st.push(root);
+             root = root.left ;
+         }
+         if(st.isEmpty()){
+             break;
+         }
+         root = st.pop();
+         System.out.print(root.data+"");
+         root = root.right ;
+     }   
     }
     public static void main(String args[]){
     create_tree tree1 = new create_tree();
-    tree1.create();
+    Node root = tree1.create();
+    // System.out.println("Inorder traversal with recursion ");
+    // tree1.inorder(root);
+    System.out.println("Inorder traversal without recursion ");
+     tree1.inorder_without_recur(root);
     }
 }
